@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dm576fmk7rcma"]
+
+[ext_resource type="Script" path="res://scripts/game_hud.gd" id="1_hud"]
+
+[node name="GameHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="Panel" type="PanelContainer" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 340.0
+offset_bottom = 185.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ScoreLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "积分 0"
+
+[node name="StarsLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "星星 0 / 10"
+
+[node name="TargetLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "下一目标 · 浮岛 05"
+
+[node name="ModeLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "模式 · 骑龙飞行"
+
+[node name="HintLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "WASD 飞行 · Tab 设置 · 落岛自动下马 · F 召唤飞龙"

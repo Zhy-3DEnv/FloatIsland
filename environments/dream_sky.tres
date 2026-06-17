@@ -1,0 +1,20 @@
+[gd_resource type="Environment" format=3 uid="uid://j22r7chp78m3"]
+
+[ext_resource type="Texture2D" uid="uid://c4t5vg0ohp7i3" path="res://Textures/T_DreamIsland_Sky01.jpg" id="1_sky"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_sky"]
+panorama = ExtResource("1_sky")
+
+[sub_resource type="Sky" id="Sky_dream"]
+sky_material = SubResource("PanoramaSkyMaterial_sky")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_dream")
+ambient_light_source = 2
+ambient_light_color = Color(0.55, 0.65, 0.85, 1)
+ambient_light_energy = 0.45
+fog_enabled = true
+fog_sun_scatter = 0.13
+fog_aerial_perspective = 0.503
+fog_sky_affect = 0.536

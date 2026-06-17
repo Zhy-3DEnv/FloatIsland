@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://folatdragonmount01"]
+
+[ext_resource type="Script" path="res://scripts/dragon.gd" id="1_dragon"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+albedo_color = Color(0.85, 0.22, 0.12, 1)
+emission_enabled = true
+emission = Color(0.9, 0.35, 0.1, 1)
+emission_energy_multiplier = 0.35
+roughness = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_belly"]
+albedo_color = Color(0.95, 0.75, 0.35, 1)
+emission_enabled = true
+emission = Color(1, 0.85, 0.4, 1)
+emission_energy_multiplier = 0.2
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wing"]
+albedo_color = Color(0.55, 0.12, 0.08, 1)
+emission_enabled = true
+emission = Color(0.7, 0.2, 0.08, 1)
+emission_energy_multiplier = 0.25
+roughness = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+radius = 0.07
+height = 0.28
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+radius = 0.055
+height = 0.11
+
+[sub_resource type="BoxMesh" id="BoxMesh_wing"]
+size = Vector3(0.22, 0.015, 0.1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tail"]
+radius = 0.025
+height = 0.18
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_horn"]
+albedo_color = Color(0.95, 0.9, 0.55, 1)
+metallic = 0.3
+roughness = 0.35
+
+[node name="Dragon" type="Node3D"]
+script = ExtResource("1_dragon")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="Belly" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0, 0, 0.55, 0, 0.45, 0, -0.55, 0, 0, 0, -0.02, 0.01)
+mesh = SubResource("CapsuleMesh_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_belly")
+
+[node name="Head" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.2)
+mesh = SubResource("SphereMesh_head")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="HornL" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, -0.03, 0.04, -0.01)
+mesh = SubResource("CapsuleMesh_tail")
+surface_material_override/0 = SubResource("StandardMaterial3D_horn")
+
+[node name="HornR" type="MeshInstance3D" parent="Visual/Head"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.03, 0.04, -0.01)
+mesh = SubResource("CapsuleMesh_tail")
+surface_material_override/0 = SubResource("StandardMaterial3D_horn")
+
+[node name="WingLeftPivot" type="Node3D" parent="Visual"]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -0.12, 0.02, -0.02)
+
+[node name="WingLeft" type="MeshInstance3D" parent="Visual/WingLeftPivot"]
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="WingRightPivot" type="Node3D" parent="Visual"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0.12, 0.02, -0.02)
+
+[node name="WingRight" type="MeshInstance3D" parent="Visual/WingRightPivot"]
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="Tail" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0.01, -0.2)
+mesh = SubResource("CapsuleMesh_tail")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
