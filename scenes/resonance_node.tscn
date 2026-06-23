@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cresonance_node01"]
+
+[ext_resource type="Script" path="res://scripts/resonance_node.gd" id="1_node"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_area"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow"]
+transparency = 1
+albedo_color = Color(0.4, 0.9, 1, 0.4)
+emission_enabled = true
+emission = Color(0.35, 0.85, 1, 1)
+emission_energy_multiplier = 0.8
+shading_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_core"]
+albedo_color = Color(0.5, 0.95, 1, 1)
+emission_enabled = true
+emission = Color(0.4, 0.9, 1, 1)
+emission_energy_multiplier = 1.2
+roughness = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_glow"]
+radius = 0.35
+height = 0.7
+
+[sub_resource type="SphereMesh" id="SphereMesh_core"]
+radius = 0.15
+height = 0.3
+
+[node name="ResonanceNode" type="Area3D"]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_node")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_area")
+
+[node name="NodeVisual" type="Node3D" parent="."]
+
+[node name="Glow" type="MeshInstance3D" parent="NodeVisual"]
+mesh = SubResource("SphereMesh_glow")
+surface_material_override/0 = SubResource("StandardMaterial3D_glow")
+
+[node name="Core" type="MeshInstance3D" parent="NodeVisual"]
+mesh = SubResource("SphereMesh_core")
+surface_material_override/0 = SubResource("StandardMaterial3D_core")
