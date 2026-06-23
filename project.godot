@@ -12,17 +12,28 @@ config_version=5
 
 config/name="FolatIsland"
 run/main_scene="res://scene1.tscn"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
+CountdownManager="*res://scripts/countdown_manager.gd"
 GameManager="*res://scripts/game_manager.gd"
 FlightSettings="*res://scripts/flight_settings.gd"
+MobileInput="*res://scripts/mobile_input.gd"
+UiScale="*res://scripts/ui_scale.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Tripo3d_Godot_Bridge/plugin.cfg")
+enabled=PackedStringArray("res://addons/Tripo3d_Godot_Bridge/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [physics]
 
@@ -31,7 +42,9 @@ enabled=PackedStringArray("res://addons/Tripo3d_Godot_Bridge/plugin.cfg")
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 
 [tripo_bridge]
 
-last_cleanup="2026-06-17T11:26:54"
+last_cleanup="2026-06-22T11:25:23"
