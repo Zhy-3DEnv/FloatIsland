@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4t5vg0ohp7i3"
-path="res://.godot/imported/T_DreamIsland_Sky01.jpg-3bf4d2be60015a5d7c1446bffb2cd332.ctex"
+uid="uid://duwhyorldcvo3"
+path="res://.godot/imported/FX_CloudAlpha10.png-e7dcb5f611b26ce96f23e62ec35c05a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/T_DreamIsland_Sky01.jpg"
-dest_files=["res://.godot/imported/T_DreamIsland_Sky01.jpg-3bf4d2be60015a5d7c1446bffb2cd332.ctex"]
+source_file="res://Textures/fx_cloudalphas/FX_CloudAlpha10.png"
+dest_files=["res://.godot/imported/FX_CloudAlpha10.png-e7dcb5f611b26ce96f23e62ec35c05a7.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -34,7 +34,7 @@ process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/hdr_as_srgb=true
+process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
