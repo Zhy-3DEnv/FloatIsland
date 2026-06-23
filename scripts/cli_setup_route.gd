@@ -8,15 +8,25 @@ const PLAYER_SCENE_PATH := "res://scenes/player.tscn"
 const ROUTE: Array[String] = [
 	"floating_island_3d_model",
 	"floating_island_05",
-	"floating_island_01",
+	"floating_island_3d_model_9",
 	"floating_island_06",
+	"floating_island_3d_model_2",
+	"floating_island_01",
+	"floating_island_3d_model_8",
 	"floating_island_09",
 	"floating_island_08",
+	"floating_island_3d_model_11",
 	"floating_island_07",
 	"floating_island_04",
 	"floating_island_03",
+	"floating_island_3d_model_3",
 	"floating_island_10",
+	"floating_island_3d_model_6",
 	"floating_island_02",
+	"floating_island_3d_model_4",
+	"floating_island_3d_model_7",
+	"floating_island_3d_model_5",
+	"floating_island_3d_model_10",
 ]
 
 const START_HEIGHT_OFFSET := 25.0

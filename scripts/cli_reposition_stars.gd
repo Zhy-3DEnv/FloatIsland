@@ -30,10 +30,13 @@ func _reposition_stars(root: Node) -> void:
 
 func _rebuild_path_markers(root: Node) -> void:
 	var route := [
-		"floating_island_3d_model", "floating_island_05", "floating_island_01",
-		"floating_island_06", "floating_island_09", "floating_island_08",
-		"floating_island_07", "floating_island_04", "floating_island_03",
-		"floating_island_10", "floating_island_02",
+		"floating_island_3d_model", "floating_island_05", "floating_island_3d_model_9",
+		"floating_island_06", "floating_island_3d_model_2", "floating_island_01",
+		"floating_island_3d_model_8", "floating_island_09", "floating_island_08",
+		"floating_island_3d_model_11", "floating_island_07", "floating_island_04",
+		"floating_island_03", "floating_island_3d_model_3", "floating_island_10",
+		"floating_island_3d_model_6", "floating_island_02", "floating_island_3d_model_4",
+		"floating_island_3d_model_7", "floating_island_3d_model_5", "floating_island_3d_model_10",
 	]
 	var markers := root.get_node_or_null("RouteMarkers")
 	if markers:
