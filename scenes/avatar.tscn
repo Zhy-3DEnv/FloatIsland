@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://bs6e77x082waa"]
+
+[ext_resource type="Script" uid="uid://b6kntdly7c8be" path="res://scripts/avatar.gd" id="1_avatar"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_core"]
+radius = 0.3
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_core"]
+albedo_color = Color(0.92, 0.78, 0.65, 1)
+roughness = 0.55
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+radius = 0.15
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dragon"]
+albedo_color = Color(0.12233814, 0.4952451, 0.825369, 1)
+roughness = 0.45
+emission_enabled = true
+emission = Color(0.9, 0.35, 0.1, 1)
+emission_energy_multiplier = 0.25
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tail"]
+radius = 0.04
+height = 0.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_wing"]
+size = Vector3(0.55, 0.02, 0.28)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wing"]
+albedo_color = Color(0.55, 0.12, 0.08, 1)
+roughness = 0.4
+emission_enabled = true
+emission = Color(0.7, 0.2, 0.08, 1)
+emission_energy_multiplier = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_l64a6"]
+
+[node name="Avatar" type="Node3D" unique_id=1283703549]
+process_mode = 3
+script = ExtResource("1_avatar")
+wing_flap_speed = null
+wing_flap_idle_rate = null
+wing_flap_fly_rate = 1.0
+editor_preview_wings = true
+
+[node name="Core" type="Node3D" parent="." unique_id=1859998842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.054337844, -0.06791139)
+
+[node name="Body" type="MeshInstance3D" parent="Core" unique_id=1230543105]
+transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, 0, 0.17447758, 0.0681396)
+mesh = SubResource("CapsuleMesh_core")
+surface_material_override/0 = SubResource("StandardMaterial3D_core")
+
+[node name="Head" type="MeshInstance3D" parent="Core" unique_id=354162434]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0.35258985, 0.0681396)
+mesh = SubResource("SphereMesh_head")
+surface_material_override/0 = SubResource("StandardMaterial3D_core")
+
+[node name="DragonAddons" type="Node3D" parent="." unique_id=1408994644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.47300893, 0)
+
+[node name="BellyGlow" type="MeshInstance3D" parent="DragonAddons" unique_id=1450254737]
+transform = Transform3D(0.55, 0, 0, 0, -0.0730827, 0.54392314, 0, -0.4875525, -0.08153251, 0, 0.5, 0.02)
+mesh = SubResource("CapsuleMesh_core")
+surface_material_override/0 = SubResource("StandardMaterial3D_dragon")
+
+[node name="HornL" type="MeshInstance3D" parent="DragonAddons" unique_id=1617727589]
+transform = Transform3D(0.8660251, 0.50000006, -7.1855863e-09, 0.07085663, -0.12272726, -0.98990786, -0.49495393, 0.8572847, -0.14171338, -0.1, 0.49449134, -0.3166366)
+mesh = SubResource("CapsuleMesh_tail")
+surface_material_override/0 = SubResource("StandardMaterial3D_dragon")
+
+[node name="HornR" type="MeshInstance3D" parent="DragonAddons" unique_id=38482054]
+transform = Transform3D(0.8660251, -0.50000006, 7.1855863e-09, -0.07085663, -0.12272726, -0.98990786, 0.49495393, 0.8572847, -0.14171338, 0.1, 0.49449134, -0.3166366)
+mesh = SubResource("CapsuleMesh_tail")
+surface_material_override/0 = SubResource("StandardMaterial3D_dragon")
+
+[node name="WingLeftPivot" type="Node3D" parent="DragonAddons" unique_id=1337074991]
+transform = Transform3D(0.9424207, 0.33442968, 0, -0.33442968, 0.9424207, 0, 0, 0, 1, -0.14653814, 0.539, 0)
+
+[node name="WingLeft" type="MeshInstance3D" parent="DragonAddons/WingLeftPivot" unique_id=1858993477]
+transform = Transform3D(0.46922654, 0, 0, 0, 1, 0, 0, 0, 1, -0.12334627, -0.0077774525, 0)
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="MidFingerPivot" type="Node3D" parent="DragonAddons/WingLeftPivot" unique_id=1301230685]
+transform = Transform3D(0.84780884, 0.5303019, 0, -0.5238204, 0.83744663, 0.15586972, 0.082658015, -0.13214773, 0.98777765, -0.30552194, -0.0077774525, 0)
+
+[node name="WingLeft2" type="MeshInstance3D" parent="DragonAddons/WingLeftPivot/MidFingerPivot" unique_id=1088231859]
+transform = Transform3D(0.7184285, 0, 0, 0, 1, 0, 0, 0, 1.4748704, -0.15052664, 0, 0.063661754)
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="TipFingerPivot" type="Node3D" parent="DragonAddons/WingLeftPivot/MidFingerPivot" unique_id=1583301821]
+transform = Transform3D(0.7983599, 0.6021806, 0, -0.5852139, 0.77586573, 0.23570535, 0.14193718, -0.18817769, 0.9718246, -0.39, 0, 0.05)
+
+[node name="WingLeft3" type="MeshInstance3D" parent="DragonAddons/WingLeftPivot/MidFingerPivot/TipFingerPivot" unique_id=2014143798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.84248805, -0.2443595, 0, 0.002957505)
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="WingRightPivot" type="Node3D" parent="DragonAddons" unique_id=744004759]
+transform = Transform3D(0.9424207, -0.33442968, 0, 0.33442968, 0.9424207, 0, 0, 0, 1, 0.15779358, 0.53913975, 0)
+
+[node name="WingRight" type="MeshInstance3D" parent="DragonAddons/WingRightPivot" unique_id=1330483947]
+transform = Transform3D(0.46922654, 0, 0, 0, 1, 0, 0, 0, 1, 0.117093205, -0.0125848055, 0)
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="MidFingerPivot" type="Node3D" parent="DragonAddons/WingRightPivot" unique_id=573125040]
+transform = Transform3D(0.84780884, -0.5303019, 0, 0.5238204, 0.83744663, -0.15586972, 0.082658015, 0.13214773, 0.98777765, 0.30675298, -0.0125848055, 0)
+
+[node name="WingRight2" type="MeshInstance3D" parent="DragonAddons/WingRightPivot/MidFingerPivot" unique_id=8753527]
+transform = Transform3D(0.7184285, 0, 0, 0, 1, 0, 0, 0, 1.3402196, 0.15052664, 0, 0.050816655)
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="TipFingerPivot" type="Node3D" parent="DragonAddons/WingRightPivot/MidFingerPivot" unique_id=393572548]
+transform = Transform3D(0.7983599, -0.6021806, 0, 0.5852139, 0.77586573, -0.23570535, 0.14193718, 0.18817769, 0.9718246, 0.39, 0, 0.05)
+
+[node name="WingRight3" type="MeshInstance3D" parent="DragonAddons/WingRightPivot/MidFingerPivot/TipFingerPivot" unique_id=322851993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9305129, 0.2443595, 0, 0.005098474)
+mesh = SubResource("BoxMesh_wing")
+surface_material_override/0 = SubResource("StandardMaterial3D_wing")
+
+[node name="Tail" type="MeshInstance3D" parent="DragonAddons" unique_id=725113815]
+transform = Transform3D(0.185, 0, 0, 0, 0.039662972, -0.18069823, 0, 0.18069823, 0.039662972, -0.013975322, 0.5944674, 0.3038377)
+mesh = SubResource("SphereMesh_l64a6")
+surface_material_override/0 = SubResource("StandardMaterial3D_dragon")
