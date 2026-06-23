@@ -1,3 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/build/
+*.apk
+*.keystore
+*.jks
+.godot/export_credentials.cfg
+.cursor/screen_*.png
