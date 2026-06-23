@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bty0oqrxd76cp"]
+
+[ext_resource type="Script" uid="uid://b3uri181yaf2b" path="res://scripts/hold_button.gd" id="1_hb"]
+[ext_resource type="Theme" uid="uid://v3g2c01mo83i" path="res://resources/themes/mobile_hud.tres" id="2_theme"]
+
+[node name="MobileActionButton" type="Button" unique_id=1508168664]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 120.0
+offset_bottom = 120.0
+focus_mode = 0
+theme = ExtResource("2_theme")
+text = "按钮"
+script = ExtResource("1_hb")

@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://b36p0yakmjyom"]
+
+[ext_resource type="Script" uid="uid://cm468kku6dup8" path="res://scripts/mobile_controls.gd" id="1_mc"]
+[ext_resource type="Script" uid="uid://c07g0e1gi6uif" path="res://scripts/virtual_joystick.gd" id="2_vj"]
+[ext_resource type="Script" uid="uid://cw08uud7qx0xv" path="res://scripts/touch_look_zone.gd" id="3_tl"]
+[ext_resource type="PackedScene" uid="uid://bty0oqrxd76cp" path="res://scenes/mobile_action_button.tscn" id="4_btn"]
+[ext_resource type="Theme" uid="uid://v3g2c01mo83i" path="res://resources/themes/mobile_hud.tres" id="5_theme"]
+
+[node name="MobileControls" type="CanvasLayer" unique_id=1572901465]
+layer = 3
+script = ExtResource("1_mc")
+
+[node name="Root" type="Control" parent="." unique_id=1943551933]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LookZone" type="Control" parent="Root" unique_id=1201389946]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_tl")
+
+[node name="MoveJoystick" type="Control" parent="Root" unique_id=1748906335]
+layout_mode = 1
+anchor_right = 0.48
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_vj")
+
+[node name="Actions" type="VBoxContainer" parent="Root" unique_id=1654657924]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -373.0
+offset_top = -431.0
+offset_right = -153.0
+offset_bottom = -139.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("5_theme")
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="Row1" type="HBoxContainer" parent="Root/Actions" unique_id=1729214056]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="FlyUpBtn" parent="Root/Actions/Row1" unique_id=326957508 instance=ExtResource("4_btn")]
+layout_mode = 2
+text = "升"
+mobile_action = &"fly_up"
+
+[node name="BoostBtn" parent="Root/Actions/Row1" unique_id=461072484 instance=ExtResource("4_btn")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "冲"
+mobile_action = &"boost"
+tap_to_trigger = true
+
+[node name="Row2" type="HBoxContainer" parent="Root/Actions" unique_id=1994366776]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="JumpBtn" parent="Root/Actions/Row2" unique_id=495189127 instance=ExtResource("4_btn")]
+visible = false
+layout_mode = 2
+text = "跳"
+mobile_action = &"jump"
+
+[node name="Row3" type="HBoxContainer" parent="Root/Actions" unique_id=2015243612]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="TakeoffBtn" parent="Root/Actions/Row3" unique_id=2020245666 instance=ExtResource("4_btn")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "翼"
+
+[node name="SettingsBtn" parent="Root/Actions/Row3" unique_id=1961099524 instance=ExtResource("4_btn")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "设"
+
+[connection signal="pressed" from="Root/Actions/Row3/TakeoffBtn" to="." method="_on_takeoff_pressed"]
+[connection signal="pressed" from="Root/Actions/Row3/SettingsBtn" to="." method="_on_settings_pressed"]
