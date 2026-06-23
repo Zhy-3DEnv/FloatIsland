@@ -46,11 +46,11 @@ func _on_route_progress(_stars: int, _total: int, _score: int, _next: String) ->
 func _refresh_state() -> void:
 	var gm := _gm()
 	if gm.is_target_island(island_name):
-		monitoring = true
+		set_deferred("monitoring", true)
 		visible = true
 		_set_brightness(1.0)
 	else:
-		monitoring = false
+		set_deferred("monitoring", false)
 		visible = false
 
 
@@ -62,7 +62,7 @@ func _set_brightness(amount: float) -> void:
 
 
 func _play_collect_effect() -> void:
-	monitoring = false
+	set_deferred("monitoring", false)
 	var tween := create_tween()
 	tween.tween_property(visual, "scale", Vector3.ZERO, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 	tween.tween_callback(hide)
