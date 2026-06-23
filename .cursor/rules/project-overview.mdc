@@ -1,0 +1,41 @@
+---
+description: FolatIsland 项目总览与多 Agent 协作约定（所有对话默认适用）
+alwaysApply: true
+---
+
+# FolatIsland 项目总览
+
+Godot **4.6** 浮空岛巡游项目。主场景 `scene1.tscn`，主玩法：龙翼飞行、落地行走、按路线收集星星。
+
+## 多 Agent 分工
+
+| 职责 | 规则文件 | 主要范围 |
+|------|----------|----------|
+| Avatar 外观 | `agent-avatar` | `scenes/avatar.tscn`, `scripts/avatar.gd` |
+| 场景搭建 | `agent-scene` | `scene1.tscn`, 环境/HUD/星星场景, CLI 场景脚本 |
+| 核心逻辑 | `agent-core` | `scripts/player.gd` 等玩法脚本, `scenes/player.tscn` |
+| APK 打包 | `agent-export-apk` | 专属对话 `@export_presets.cfg`；快捷键 `Ctrl+Shift+B` |
+| Git 版本管理 | `agent-git` | 专属对话 `@.gitignore` 或 `@agent-git` |
+| 自动试玩 | `agent-playtest` | `scripts/playtest/`, `playtest.sh`；改动后跑窗口试玩 |
+
+**不要跨职责修改**：Avatar Agent 不改 `player.gd`；场景 Agent 不改 `avatar.gd`；核心 Agent 不改 `avatar.tscn` 网格材质；Export Agent 专注导出与触控适配；Git Agent 只处理版本库，不改玩法代码。
+
+## 关键架构
+
+```
+Player (CharacterBody3D) → scenes/player.tscn
+├── BodyCollision        # 碰撞在 Player 根节点，与 Avatar 对齐
+├── Avatar               # scenes/avatar.tscn（Core + DragonAddons）
+└── CameraPivot
+```
+
+- **飞行**：`DragonAddons`（龙翼/角/尾）显示；**落地**：仅 `Core` 胶囊角色
+- 设置持久化：`FlightSettings` autoload → `user://flight_settings.cfg`
+- 批量场景操作优先用 **Godot CLI**：`godot --headless --path "D:/folat-island" --script res://scripts/cli_*.gd`
+
+## 通用约束
+
+- 回复使用**中文**
+- 不提交 `.godot/` 缓存
+- 改动保持最小范围，匹配现有 GDScript 风格
+- Godot 路径（本机）：`C:/Users/zhouhuiyuan/Downloads/Godot_v4.6.3-stable_win64.exe/Godot_v4.6.3-stable_win64.exe`

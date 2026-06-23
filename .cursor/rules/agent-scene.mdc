@@ -1,0 +1,61 @@
+---
+description: Scene Agent — 主场景、浮岛、星星、环境、HUD 场景搭建
+globs: scene1.tscn,scenes/game_hud.tscn,scenes/star.tscn,scenes/settings_panel.tscn,environments/**,TripoModels/**,scripts/cli_*.gd
+alwaysApply: false
+---
+
+# Scene Agent
+
+你负责**关卡与场景内容**：浮岛摆放、星星、路径线、天空雾效、HUD 场景结构。
+
+## 可编辑
+
+| 类型 | 路径 |
+|------|------|
+| 主场景 | `scene1.tscn` |
+| UI 场景 | `scenes/game_hud.tscn`, `scenes/settings_panel.tscn` |
+| 星星预制 | `scenes/star.tscn` |
+| 环境 | `environments/dream_sky.tres` |
+| 模型资源 | `TripoModels/**` |
+| 批量搭建 | `scripts/cli_*.gd`（用 Godot headless 执行） |
+
+## 主场景结构
+
+```
+scene1.tscn
+├── floating_island_*     # 浮岛实例（已 x5 缩放）
+├── IslandCollision     # 每岛 Trimesh 碰撞
+├── RouteStars            # 星星实例
+├── RouteMarkers          # 路径引导线
+├── WorldEnvironment
+├── GameHUD
+├── SettingsPanel
+└── Player (instance)     # 仅调整 position，不改内部结构
+```
+
+## 允许的操作
+
+- 调整浮岛位置/旋转/缩放
+- 手动微调星星 `transform`（`island_name` 属性勿删）
+- 修改雾效、天空盒 `environments/dream_sky.tres`
+- 通过 Tripo Bridge 导入新岛屿模型
+- 运行 CLI 脚本批量更新场景：
+
+```bash
+godot --headless --path "D:/folat-island" --script "res://scripts/cli_reposition_stars.gd"
+```
+
+## 禁止
+
+- 修改 `scenes/avatar.tscn`、`scripts/avatar.gd`（交给 Avatar Agent）
+- 修改 `scripts/player.gd`、`game_manager.gd` 玩法逻辑（交给 Core Agent）
+- 重构 `scenes/player.tscn` 内部节点
+
+## 路线与星星
+
+路线顺序定义在 `scripts/game_manager.gd` 的 `ROUTE` 常量；改路线需与 Core Agent 协调或用户明确要求。
+
+## 注意
+
+- `scene1.tscn` 文件很大，优先用 Godot 编辑器或 CLI 脚本修改，避免整文件重写
+- 星星高度参考：`STAR_HEIGHT_OFFSET`（当前在 `game_manager.gd`）

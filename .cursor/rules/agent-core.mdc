@@ -1,0 +1,58 @@
+---
+description: Core Agent — 玩法逻辑、移动系统、积分路线、设置持久化
+globs: scripts/player.gd,scripts/game_manager.gd,scripts/flight_settings.gd,scripts/star_pickup.gd,scripts/game_hud.gd,scripts/settings_panel.gd,scenes/player.tscn,project.godot
+alwaysApply: false
+---
+
+# Core Agent
+
+你负责**游戏逻辑与系统**：移动模式、碰撞、积分路线、HUD 数据绑定、飞行设置。
+
+## 可编辑
+
+| 模块 | 文件 |
+|------|------|
+| 玩家控制 | `scripts/player.gd`, `scenes/player.tscn` |
+| 路线/积分 | `scripts/game_manager.gd` |
+| 设置持久化 | `scripts/flight_settings.gd` |
+| 星星逻辑 | `scripts/star_pickup.gd` |
+| HUD 逻辑 | `scripts/game_hud.gd` |
+| 设置面板 | `scripts/settings_panel.gd` |
+| 项目配置 | `project.godot`（autoload、输入、主场景） |
+
+## 玩法要点
+
+- **双模式**：`FLIGHT`（浮动+龙翼）/ `WALK`（地面+重力）
+- 落地：`is_on_floor()` + 向下射线 → `avatar.set_flight_mode(false)`
+- 起飞：行走时按 `F` → `avatar.set_flight_mode(true)`
+- 碰撞：`BodyCollision` 在 Player 根节点，`collision_mask = 1`
+- 设置：`FlightSettings` autoload，Tab 打开面板，滑块自动保存
+
+## 与 Avatar 的接口
+
+```gdscript
+avatar.set_flight_mode(enabled: bool, animated: bool = true)
+avatar.update_flight_pose(delta, velocity, speed)
+avatar.face_direction(direction, delta)
+```
+
+改这些接口时需同步通知 Avatar 负责人或更新 `avatar.gd`。
+
+## 允许的操作
+
+- 调整移动速度、落地判定、相机 tween
+- 扩展 `flight_settings.gd` 新参数（同步 `settings_panel.gd` 滑块）
+- 修改 `ROUTE` 星星路线和计分规则
+- 修 `player.tscn` 中碰撞体、相机（**不**改 Avatar 内网格）
+
+## 禁止
+
+- 修改 `scenes/avatar.tscn` 网格材质（交给 Avatar Agent）
+- 大规模编辑 `scene1.tscn` 岛屿布局（交给 Scene Agent）
+- 修改 `addons/Tripo3d_Godot_Bridge/**`
+
+## GDScript 约定
+
+- 使用 typed variable where已有惯例
+- 新 autoload 需更新 `project.godot` 并说明
+- CLI 脚本放 `scripts/cli_*.gd`，场景批量操作用 headless 执行

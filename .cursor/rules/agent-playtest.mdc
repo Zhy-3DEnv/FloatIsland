@@ -1,0 +1,46 @@
+---
+description: 玩法/场景改动后自动试玩，模拟玩家操作供体验验证
+globs:
+  - scene1.tscn
+  - scripts/player.gd
+  - scripts/game_manager.gd
+  - scripts/game_hud.gd
+  - scripts/island_mission.gd
+  - scripts/resonance_*.gd
+  - scripts/mobile_*.gd
+  - scripts/playtest/**
+---
+
+# Playtest Agent（自动试玩）
+
+完成上述范围内的改动后，**交付前必须跑试玩**，让用户能直接观看机器人操作并感受体验。
+
+## 运行命令
+
+| 目的 | 命令 |
+|------|------|
+| **窗口试玩（用户观看）** | `bash playtest.sh` 或 `playtest.bat` |
+| **无头冒烟（Agent 自检）** | `godot --headless --path "D:/folat-island" --script res://scripts/cli_playtest_smoke.gd` |
+
+Godot 路径：`C:/Users/zhouhuiyuan/Downloads/Godot_v4.6.3-stable_win64.exe/Godot_v4.6.3-stable_win64.exe`
+
+## 试玩流程
+
+1. `playtest_run.gd`（`playtest.sh` / `playtest.bat`）加载 `scene1.tscn`
+2. `PlaytestDriver` 启用 Player 的 bot 输入接口
+3. 机器人：飞至祭坛 → 触发/等待 `GameManager.start_game()` → 按最近解锁岛屿导航（穿环 / 停留采集）
+4. 左上角 HUD 显示阶段、能量、倒计时；**ESC** 停止机器人并接管手动操控
+
+## 职责边界
+
+- 试玩逻辑集中在 `scripts/playtest/`，通过 `player.gd` 的 `set_bot_*` API 驱动，**不伪造 Input 事件**
+- 场景/核心 Agent 改完玩法后调用试玩，**不要**为试玩去改 Avatar 或 APK 导出配置
+- 仅当 M1 路线或任务节点结构变化时，才需更新 `playtest_driver.gd` 的目标收集逻辑
+
+## Agent 工作流
+
+```
+改动完成 → cli_playtest_smoke（无头）→ 通过则 playtest.sh（窗口）→ 告知用户观看
+```
+
+若冒烟失败，先修脚本错误，不要跳过。

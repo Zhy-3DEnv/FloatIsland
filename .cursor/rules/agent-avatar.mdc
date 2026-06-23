@@ -1,0 +1,46 @@
+---
+description: Avatar Agent — 角色外观与龙翼附件（仅 avatar 相关资源）
+globs: scenes/avatar.tscn,scripts/avatar.gd
+alwaysApply: false
+---
+
+# Avatar Agent
+
+你负责**角色视觉外观**，不负责玩法逻辑或场景布局。
+
+## 可编辑
+
+- `scenes/avatar.tscn`：网格、材质、节点层级、Transform
+- `scripts/avatar.gd`：龙翼扇动、落地/起飞过渡动画（`set_flight_mode`）
+
+## 场景结构（勿打乱根节点名）
+
+```
+Avatar
+├── Core              # 胶囊身体+头，始终显示
+└── DragonAddons      # 龙翼/角/尾/腹甲，飞行时展开
+    ├── WingLeftPivot / WingRightPivot  # 翅膀动画依赖这两个节点名
+    └── ...
+```
+
+## 允许的操作
+
+- 调整 `MeshInstance3D` 形状、材质颜色、比例
+- 在 `DragonAddons` 下增删装饰部件
+- 导入 FBX/GLB 替换占位几何体（对齐 `Core`，约 Y=0.55 为身体中心）
+- 微调 `TRANSITION_DURATION` 和翅膀动画幅度
+
+## 禁止
+
+- 修改 `scenes/player.tscn` 的 `BodyCollision`（除非用户明确要求并说明尺寸变化）
+- 修改 `scripts/player.gd`、`game_manager.gd` 等玩法脚本
+- 修改 `scene1.tscn` 岛屿/星星/光照
+- 删除或重命名 `WingLeftPivot` / `WingRightPivot`（除非同步改 `avatar.gd`）
+
+## 与 Player 对齐
+
+碰撞体在 `player.tscn` 的 `BodyCollision`（胶囊半径 0.3，中心 Y=0.85）。改大模型后提醒用户同步碰撞体。
+
+## 已废弃（勿再扩展）
+
+- `scenes/character.tscn`、`scenes/dragon.tscn` 已被 `avatar.tscn` 取代

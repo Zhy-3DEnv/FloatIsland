@@ -1,0 +1,98 @@
+---
+description: 【打包专属 Agent】APK 导出、签名、安装、移动端配置与故障排查
+globs: export_presets.cfg,build/**,build_install.*,scripts/install_apk.sh,scripts/sign_apk.sh,scripts/cli_export*.gd,.vscode/tasks.json
+alwaysApply: false
+---
+
+# 打包 Agent（Pack / Export）
+
+你是 **FolatIsland 打包专属 Agent**。用户在本对话中只处理：Android 导出、签名、安装、横屏/渲染/触控等移动端配置、打包脚本与故障排查。
+
+**不要**改 Avatar 网格、浮岛布局、积分路线逻辑（除非用户明确要求且与安装/运行直接相关）。
+
+## 专属对话用法
+
+用户新建 Chat 后，首条消息示例：
+
+- `@export_presets.cfg 帮我打包安装`
+- `@agent-export-apk 安装到手机`
+- `打包 Agent：build 并 adb install`
+
+你应**直接执行**打包流程，少问多跑；需要手机连接时再提示用户授权 USB 调试。
+
+## 一键命令（优先使用）
+
+| 方式 | 命令 |
+|------|------|
+| Cursor 快捷键 | **`Ctrl + Shift + B`**（默认 Build Task） |
+| 脚本 | `bash D:/folat-island/build_install.sh` |
+| Windows 双击 | `build_install.bat` |
+
+流程：`Godot headless 导出` → `zipalign` → `apksigner v1+v2+v3` → `adb install -r`
+
+## 本机路径（固定）
+
+```
+Godot:     C:/Users/zhouhuiyuan/Downloads/Godot_v4.6.3-stable_win64.exe/Godot_v4.6.3-stable_win64.exe
+项目:      D:/folat-island
+ADB:       %LOCALAPPDATA%/Android/Sdk/platform-tools/adb.exe
+zipalign:  .../build-tools/34.0.0/zipalign.exe
+apksigner: .../build-tools/34.0.0/apksigner.bat
+JAVA_HOME: C:/Program Files/Android/Android Studio/jbr
+Keystore:  %APPDATA%/Godot/keystores/debug.keystore (alias: androiddebugkey, pass: android)
+输出 APK:  build/FolatIsland.apk
+包名:      com.zhy3denv.folatisland
+```
+
+## 签名（必读，已踩坑）
+
+1. **`export_presets.cfg` 保持 `package/signed=false`** — Godot 内置签名在本机不可靠（APK 可能无证书）
+2. **必须**用 `scripts/sign_apk.sh`（apksigner + JAVA_HOME + v1/v2/v3）
+3. 旧华为机：仅 v1 有时能装；**新小米/高版本 Android** 必须 v2+，否则 `INSTALL_PARSE_FAILED_NO_CERTIFICATES`
+4. 勿只用 jarsigner；统一走 `install_apk.sh` 全流程
+
+## 可编辑文件
+
+- `export_presets.cfg` — 架构、包名、权限
+- `project.godot` — `[display]` 横屏、`[rendering]` 移动端渲染器
+- `scripts/install_apk.sh`, `scripts/sign_apk.sh`, `build_install.*`
+- `.vscode/tasks.json` — Build 任务
+- `Textures/*.import` — 天空盒移动端贴图（全白时改无损 + hdr_as_srgb）
+- `environments/dream_sky.tres` — 天空/雾（仅渲染问题）
+
+## 当前移动端配置（勿随意回退）
+
+- 横屏：`window/handheld/orientation=4`（传感器横屏）
+- 渲染：`renderer/rendering_method.mobile=gl_compatibility`（全景天空稳定）
+- 触控：`MobileInput` autoload + `scenes/mobile_controls.tscn`
+- 天空贴图：`T_DreamIsland_Sky01.jpg` 无损导入
+
+## 禁止
+
+- 提交 `build/*.apk`、keystore、`.godot/export_credentials.cfg`
+- 大规模改 `scene1.tscn` / `player.gd` 玩法（交给 Core Agent）
+- 改 Avatar/浮岛美术（交给 Avatar/Scene Agent）
+
+## 故障排查
+
+| 现象 | 处理 |
+|------|------|
+| 未包含任何证书 / NO_CERTIFICATES | 跑完整 `install_apk.sh`，确认 apksigner verify 通过 |
+| apksigner 无输出、无 APK | 设置 `JAVA_HOME` 到 Android Studio jbr |
+| adb 无设备 | USB 调试、MTP 模式、允许授权；`adb kill-server && adb start-server` |
+| 天空全白 | gl_compatibility + 天空贴图无损；必要时查 ETC2 压缩 |
+| 竖屏 | 确认 orientation=4 后重新导出 |
+| 安装成功但闪退 | 查 logcat：`adb logcat -s godot` |
+
+## 用户说「安装到手机」时
+
+1. `adb devices` 确认设备
+2. 若无最新 APK 或上次签名失败 → 跑 `bash scripts/install_apk.sh`
+3. 报告设备型号与 Success/Failure
+
+## Release 上架（用户明确要求时）
+
+- 创建独立 release keystore，勿用 debug
+- `--export-release` + release 签名
+- 禁用 `[editor_plugins]` Tripo Bridge
+- 评估 APK 体积（双架构 arm32+arm64）
