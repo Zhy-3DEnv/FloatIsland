@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://j5mt1eywk2iu"]
+
+[ext_resource type="Script" path="res://scripts/hud_flight_direction.gd" id="1_dir"]
+
+[node name="FlightDirectionIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_dir")

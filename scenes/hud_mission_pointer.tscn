@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cmqe7b0pnpjci"]
+
+[ext_resource type="Script" path="res://scripts/hud_mission_pointer.gd" id="1_ptr"]
+
+[node name="MissionPointer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ptr")

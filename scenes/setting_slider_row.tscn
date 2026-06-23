@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://bflxbd06buxm1"]
+
+[ext_resource type="Script" path="res://scripts/setting_slider_row.gd" id="1_row"]
+[ext_resource type="Theme" uid="uid://n5doxajlgofs" path="res://resources/themes/settings_panel.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://scenes/touch_slider.tscn" id="3_ts"]
+
+[node name="SettingSliderRow" type="VBoxContainer"]
+custom_minimum_size = Vector2(0, 52)
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+script = ExtResource("1_row")
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="NameLabel" type="Label" parent="Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "参数名"
+clip_text = true
+
+[node name="ValueLabel" type="Label" parent="Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "0.0"
+horizontal_alignment = 2
+
+[node name="Controls" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="MinusBtn" type="Button" parent="Controls"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(34, 30)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+theme_override_font_sizes/font_size = 16
+text = "−"
+
+[node name="TouchSlider" parent="Controls" instance=ExtResource("3_ts")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlusBtn" type="Button" parent="Controls"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(34, 30)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_theme")
+theme_override_font_sizes/font_size = 16
+text = "+"

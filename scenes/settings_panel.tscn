@@ -1,74 +1,147 @@
 [gd_scene format=3 uid="uid://usttp8w8abum"]
 
-[ext_resource type="Script" path="res://scripts/settings_panel.gd" id="1_panel"]
+[ext_resource type="Script" uid="uid://cq62g5cnhe850" path="res://scripts/settings_panel.gd" id="1_panel"]
+[ext_resource type="PackedScene" uid="uid://bflxbd06buxm1" path="res://scenes/setting_slider_row.tscn" id="2_row"]
+[ext_resource type="Theme" uid="uid://n5doxajlgofs" path="res://resources/themes/settings_panel.tres" id="3_theme"]
+[ext_resource type="PackedScene" uid="uid://n6cuqhcjn7tg" path="res://scenes/setting_toggle_row.tscn" id="4_toggle"]
+[ext_resource type="Theme" uid="uid://cj75berl35kq3" path="res://resources/themes/settings_scroll.tres" id="5_scroll_theme"]
 
-[node name="SettingsPanel" type="CanvasLayer"]
+[node name="SettingsPanel" type="CanvasLayer" unique_id=1324259742]
 layer = 10
 script = ExtResource("1_panel")
 
-[node name="Panel" type="PanelContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = -240.0
-offset_right = 260.0
-offset_bottom = 240.0
+[node name="Panel" type="PanelContainer" parent="." unique_id=1124411186]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 12.0
+offset_right = -8.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Margin" type="MarginContainer" parent="Panel"]
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=196161788]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
 
-[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=1241790721]
 layout_mode = 2
-theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Panel/Margin/VBox"]
+[node name="Title" type="Label" parent="Panel/Margin/VBox" unique_id=1067293875]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "飞行操控设置"
 horizontal_alignment = 1
 
-[node name="Hint" type="Label" parent="Panel/Margin/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 13
-text = "按 Tab 打开/关闭此面板"
-horizontal_alignment = 1
-
-[node name="Scroll" type="ScrollContainer" parent="Panel/Margin/VBox"]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SliderBox" type="VBoxContainer" parent="Panel/Margin/VBox/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
-[node name="StatusLabel" type="Label" parent="Panel/Margin/VBox"]
+[node name="Hint" type="Label" parent="Panel/Margin/VBox" unique_id=707365967]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
+text = "右侧滚动条浏览 · 拖滑杆或点 ± 微调"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Panel/Margin/VBox" unique_id=1820106017]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("5_scroll_theme")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="ContentMargin" type="MarginContainer" parent="Panel/Margin/VBox/Scroll" unique_id=779317349]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 60
+
+[node name="SliderBox" type="VBoxContainer" parent="Panel/Margin/VBox/Scroll/ContentMargin" unique_id=1282755827]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="MoveSpeed" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=5993233 instance=ExtResource("2_row")]
+layout_mode = 2
+label_text = "飞行水平速度"
+
+[node name="WalkSpeed" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=389860163 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"walk_speed"
+label_text = "行走速度"
+
+[node name="VerticalSpeed" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=236364767 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"vertical_speed"
+label_text = "飞行垂直速度"
+
+[node name="FlightAutoFall" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=1032587159 instance=ExtResource("4_toggle")]
+layout_mode = 2
+label_text = "骑龙自动下落"
+
+[node name="FallGravityScale" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=1838307316 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"fall_gravity_scale"
+label_text = "下落重力倍率"
+
+[node name="FallMaxSpeed" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=1495537586 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"fall_max_speed"
+label_text = "最大下落速度"
+
+[node name="BoostMultiplier" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=1857853487 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"boost_multiplier"
+label_text = "加速倍率"
+
+[node name="MouseSensitivity" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=1564262598 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"mouse_sensitivity"
+label_text = "视角灵敏度"
+
+[node name="Drag" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=658472122 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"drag"
+label_text = "减速阻尼"
+
+[node name="CameraDistance" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=818711180 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"camera_distance"
+label_text = "相机距离"
+
+[node name="CameraFov" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=809814980 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"camera_fov"
+label_text = "视野 FOV"
+
+[node name="UiScale" parent="Panel/Margin/VBox/Scroll/ContentMargin/SliderBox" unique_id=1733556141 instance=ExtResource("2_row")]
+layout_mode = 2
+setting_key = &"ui_scale"
+label_text = "界面缩放"
+
+[node name="StatusLabel" type="Label" parent="Panel/Margin/VBox" unique_id=590195926]
+layout_mode = 2
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 18
 text = "调节后自动保存"
 horizontal_alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="Panel/Margin/VBox"]
+[node name="Buttons" type="HBoxContainer" parent="Panel/Margin/VBox" unique_id=428798358]
 layout_mode = 2
+theme = ExtResource("3_theme")
+theme_override_constants/separation = 16
 alignment = 1
-theme_override_constants/separation = 12
 
-[node name="ResetButton" type="Button" parent="Panel/Margin/VBox/Buttons"]
+[node name="ResetButton" type="Button" parent="Panel/Margin/VBox/Buttons" unique_id=1124102884]
+custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "恢复默认"
 
-[node name="CloseButton" type="Button" parent="Panel/Margin/VBox/Buttons"]
+[node name="CloseButton" type="Button" parent="Panel/Margin/VBox/Buttons" unique_id=1091932722]
+custom_minimum_size = Vector2(112, 38)
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "关闭面板"
 
 [connection signal="pressed" from="Panel/Margin/VBox/Buttons/ResetButton" to="." method="_on_reset_pressed"]

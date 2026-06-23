@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://d1wxldjjo0h7t"]
+
+[node name="StatusPanel" type="PanelContainer"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 290.0
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TimerLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "10:00"
+
+[node name="StabilityBar" type="ProgressBar" parent="VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="EnergyLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "共鸣能量 0 / 50"
+
+[node name="TargetLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "飞入心核祭坛开始任务"
+
+[node name="ObjectiveLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.55, 0.92, 1, 1)
+text = "▶ 等待任务指引"
+autowrap_mode = 3
+
+[node name="ObjectiveDetailLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.75, 0.88, 0.95, 1)
+text = ""
+autowrap_mode = 3
+
+[node name="ModeLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "模式 · 龙翼飞行"
+
+[node name="HintLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "WASD 飞行 · Tab 设置 · 落岛自动下马 · F 展开龙翼"
+
+[node name="LiftBar" type="ProgressBar" parent="VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="LiftLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "升力"

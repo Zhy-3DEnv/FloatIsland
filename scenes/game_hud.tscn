@@ -1,41 +1,100 @@
-[gd_scene format=3 uid="uid://dm576fmk7rcma"]
+[gd_scene load_steps=7 format=3 uid="uid://dm576fmk7rcma"]
 
 [ext_resource type="Script" path="res://scripts/game_hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" uid="uid://d1wxldjjo0h7t" path="res://scenes/hud_status_panel.tscn" id="2_status"]
+[ext_resource type="PackedScene" uid="uid://b36p0yakmjyom" path="res://scenes/mobile_controls.tscn" id="3_mobile"]
+[ext_resource type="PackedScene" uid="uid://usttp8w8abum" path="res://scenes/settings_panel.tscn" id="4_settings"]
+[ext_resource type="PackedScene" uid="uid://dhudflightdir01" path="res://scenes/hud_flight_direction.tscn" id="5_flight_dir"]
+[ext_resource type="PackedScene" path="res://scenes/hud_mission_pointer.tscn" id="6_pointer"]
 
 [node name="GameHUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
 
-[node name="Panel" type="PanelContainer" parent="."]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 340.0
-offset_bottom = 185.0
+[node name="StatusPanel" parent="." instance=ExtResource("2_status")]
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="MissionPointer" parent="." instance=ExtResource("6_pointer")]
+
+[node name="FlightDirectionIndicator" parent="." instance=ExtResource("5_flight_dir")]
+
+[node name="MobileControls" parent="." instance=ExtResource("3_mobile")]
+
+[node name="SettingsPanel" parent="." instance=ExtResource("4_settings")]
+
+[node name="IntroPanel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -160.0
+offset_right = 360.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="IntroPanel"]
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
 
-[node name="ScoreLabel" type="Label" parent="Panel/VBox"]
+[node name="VBox" type="VBoxContainer" parent="IntroPanel/Margin"]
+layout_mode = 2
+
+[node name="IntroText" type="Label" parent="IntroPanel/Margin/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "积分 0"
+text = "心核裂解，天枢失稳。"
+horizontal_alignment = 1
 
-[node name="StarsLabel" type="Label" parent="Panel/VBox"]
+[node name="ResultPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -100.0
+offset_right = 280.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="ResultPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="ResultPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="ResultPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "天枢停降"
+horizontal_alignment = 1
+
+[node name="Body" type="Label" parent="ResultPanel/Margin/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "星星 0 / 10"
+text = "共鸣重聚，天枢停降。群岛得保。"
+horizontal_alignment = 1
 
-[node name="TargetLabel" type="Label" parent="Panel/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "下一目标 · 浮岛 05"
-
-[node name="ModeLabel" type="Label" parent="Panel/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "模式 · 骑龙飞行"
-
-[node name="HintLabel" type="Label" parent="Panel/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "WASD 飞行 · Tab 设置 · 落岛自动下马 · F 召唤飞龙"
+[node name="ToastLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_top = 72.0
+offset_right = 240.0
+offset_bottom = 108.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "提示"
+horizontal_alignment = 1
